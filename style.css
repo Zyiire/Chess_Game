@@ -38,7 +38,17 @@ body {
   pointer-events: none;
 }
 
+.turn {
+    border: 2px solid blue;
+    padding: .5px;
+    text-align :center;
+    font-weight: bold;
+}
 
+.turn.black-turn {
+    border-color: black;
+    background-color: lightgray;
+}
 
 /* Highlight legal move squares in green */
 .highlight {

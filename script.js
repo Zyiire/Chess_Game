@@ -13,6 +13,9 @@ let legalMoves = [];
 // Track current turn: 'w' (white) or 'b' (black)
 let currentTurn = 'w';
 
+
+
+
 // Helper to check if a file/rank is on the board
 function inBounds(file, rank) {
   return file >= 'a'.charCodeAt(0) && file <= 'h'.charCodeAt(0)
@@ -193,4 +196,24 @@ function handleTileClick(e) {
     legalMoves = getLegalMoves(position);
     renderBoard();
   }
+  function updateTurnDisplay() {
+  const turnDisplay = document.getElementById("turn");
+  const currentPlayerSpan = document.getElementById("current-player");
+
+  if  (currentTurn === 'w') {
+    currentPlayerSpan.textContent = "White's turn";
+    turnDisplay.classList.remove('black-turn');
+    currentPlayerSpan.textContent = 'White';
+  }
+    else {
+        turnDisplay.classList.add('black-turn');
+        currentPlayerSpan.textContent = 'Black';
+    }
+}
+
+function switchTurn() {
+    currentTurn = (currentTurn === 'w') ? 'b' : 'w';
+    updateTurnDisplay();
+}
+updateTurnDisplay();
 }
