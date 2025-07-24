@@ -1,4 +1,8 @@
 const board = document.getElementById("chessboard");
+const winnerScreen = document.getElementById("winner");
+const winnerText = document.getElementById("winner-text");
+const currentPlayerSpan = document.getElementById("current-player");
+const restartButton = document.getElementById("restart-button");
 const piecePositions = {
   a8: 'bR', b8: 'bH', c8: 'bB', d8: 'bQ', e8: 'bK', f8: 'bB', g8: 'bH', h8: 'bR',
   a7: 'bP', b7: 'bP', c7: 'bP', d7: 'bP', e7: 'bP', f7: 'bP', g7: 'bP', h7: 'bP',
@@ -179,6 +183,8 @@ function handleTileClick(e) {
     renderBoard();
     // Switch turn
     currentTurn = currentTurn === 'w' ? 'b' : 'w';
+    updateTurnDisplay();
+    checkForWinner();
     return;
   }
 
@@ -196,7 +202,9 @@ function handleTileClick(e) {
     legalMoves = getLegalMoves(position);
     renderBoard();
   }
-  function updateTurnDisplay() {
+}
+
+function updateTurnDisplay() {
   const turnDisplay = document.getElementById("turn");
   const currentPlayerSpan = document.getElementById("current-player");
 
@@ -205,15 +213,33 @@ function handleTileClick(e) {
     turnDisplay.classList.remove('black-turn');
     currentPlayerSpan.textContent = 'White';
   }
-    else {
-        turnDisplay.classList.add('black-turn');
-        currentPlayerSpan.textContent = 'Black';
-    }
+  else {
+    turnDisplay.classList.add('black-turn');
+    currentPlayerSpan.textContent = 'Black';
+  }
 }
 
 function switchTurn() {
-    currentTurn = (currentTurn === 'w') ? 'b' : 'w';
-    updateTurnDisplay();
+  currentTurn = (currentTurn === 'w') ? 'b' : 'w';
+  updateTurnDisplay();
 }
+
+function checkForWinner() {
+  let whiteKing = false;
+  let blackKing = false;
+  for (const pos in piecePositions) {
+    const piece = piecePositions[pos];
+    if (piece === 'wK') whiteKing = true;
+    if (piece === 'bK') blackKing = true;
+  }
+  if (!whiteKing) {
+    winnerScreen.style.display = "block";
+    winnerText.textContent = "Black wins!";
+  }
+  else if (!blackKing) {
+    winnerScreen.style.display = "block";
+    winnerText.textContent = "White wins!";
+  }
+}
+
 updateTurnDisplay();
-}
