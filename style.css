@@ -66,7 +66,6 @@ body {
   display: none;
 }
 
-/* Highlight legal move squares in green */
 .highlight {
   outline: 3px solid red;
   outline-offset: -3px;

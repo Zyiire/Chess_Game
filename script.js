@@ -128,7 +128,6 @@ function getLegalMoves(from) {
       break;
     }
   }
-  // Only return moves that are on the board and not occupied by own color
   return moves;
 }
 
@@ -145,7 +144,6 @@ function renderBoard() {
             const position = `${letters[col]}${row + 1}`;
             tile.setAttribute("data-position", position);
 
-            // highlight if this square is selectable or a legal destination
             if (selectedSquare === position) {
               tile.classList.add("selected");
             }
@@ -240,6 +238,7 @@ function checkForWinner() {
     winnerScreen.style.display = "block";
     winnerText.textContent = "White wins!";
   }
+
 }
 
 updateTurnDisplay();
